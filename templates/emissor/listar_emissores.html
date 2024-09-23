@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Emissores</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(192, 232, 244);
+        }
+        .menu {
+            background-color: rgb(22, 31, 39);
+        }
+        .menu a {
+            color: white;
+            padding: 10px 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .menu a:hover {
+            background-color: rgb(34, 47, 55);
+        }
+        .table thead {
+            background-color: rgb(22, 31, 39);
+            color: white;
+        }
+        .btn-editar {
+            background-color: rgb(242, 87, 34);
+            color: white;
+        }
+        .btn-excluir {
+            background-color: rgb(220, 20, 60);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu -->
+    <nav class="menu">
+        <a href="#">Emissor</a>
+        <a href="#">Estruturados</a>
+        <a href="#">Alçada</a>
+        <a href="#">Limites</a>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>Lista de Emissores Cadastrados</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>CNPJ</th>
+                    <th>Instituição de Garantia (CNPJ)</th>
+                    <th>Rating</th>
+                    <th>Emissor</th>
+                    <th>Analista</th>
+                    <th>Setor</th>
+                    <th>Grupo</th>
+                    <th>Mesa de Gestão</th>
+                    <th>Data de Atualização</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emissor in emissores %}
+                <tr>
+                    <td>{{ emissor.cnpj }}</td>
+                    <td>{{ emissor.instituicao_garantia_cnpj }}</td>
+                    <td>{{ emissor.rating }}</td>
+                    <td>{{ emissor.emissor }}</td>
+                    <td>{{ emissor.analista }}</td>
+                    <td>{{ emissor.setor }}</td>
+                    <td>{{ emissor.grupo }}</td>
+                    <td>{{ emissor.mesaGestao }}</td>
+                    <td>{{ emissor.dtAtualizacao.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>
+                        <a href="{{ url_for('editar_emissor', cnpj=emissor.cnpj) }}" class="btn btn-editar">Editar</a>
+                        <form action="{{ url_for('excluir_emissor', cnpj=emissor.cnpj) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-excluir">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

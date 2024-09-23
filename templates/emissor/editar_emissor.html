@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Emissor</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(192, 232, 244);
+        }
+        .menu {
+            background-color: rgb(22, 31, 39);
+        }
+        .menu a {
+            color: white;
+            padding: 10px 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .menu a:hover {
+            background-color: rgb(34, 47, 55);
+        }
+        .card {
+            background-color: rgb(22, 31, 39);
+            color: white;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .btn-editar {
+            background-color: rgb(242, 87, 34);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu -->
+    <nav class="menu">
+        <a href="#">Emissor</a>
+        <a href="#">Estruturados</a>
+        <a href="#">Alçada</a>
+        <a href="#">Limites</a>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="card">
+            <h2>Editar Emissor</h2>
+            <form method="POST" action="/editar_emissor/{{ emissor.cnpj }}">
+                <div class="form-group">
+                    <label for="instituicao_garantia_cnpj">CNPJ Instituição de Garantia:</label>
+                    <input type="text" class="form-control" id="instituicao_garantia_cnpj" name="instituicao_garantia_cnpj" value="{{ emissor.instituicao_garantia_cnpj }}">
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating:</label>
+                    <input type="text" class="form-control" id="rating" name="rating" value="{{ emissor.rating }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="emissor">Emissor:</label>
+                    <input type="text" class="form-control" id="emissor" name="emissor" value="{{ emissor.emissor }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="analista">Analista:</label>
+                    <input type="text" class="form-control" id="analista" name="analista" value="{{ emissor.analista }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="setor">Setor:</label>
+                    <input type="text" class="form-control" id="setor" name="setor" value="{{ emissor.setor }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="grupo">Grupo:</label>
+                    <input type="text" class="form-control" id="grupo" name="grupo" value="{{ emissor.grupo }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="mesaGestao">Mesa de Gestão:</label>
+                    <input type="text" class="form-control" id="mesaGestao" name="mesaGestao" value="{{ emissor.mesaGestao }}" required>
+                </div>
+                <button type="submit" class="btn btn-editar">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
