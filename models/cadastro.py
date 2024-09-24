@@ -1,4 +1,13 @@
 from config import db
+from flask_login import UserMixin
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password_hash = db.Column(db.String(150), nullable=False)
+    
+    def check_password(self, password):
+        return self.password_hash == password
 
 class Emissor(db.Model):
     cnpj = db.Column(db.String(14), primary_key=True)

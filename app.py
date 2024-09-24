@@ -1,13 +1,8 @@
 from flask import render_template
-from config import app, db
+from server import app, db
 
-@app.route('/')
-def listar_emissores():
-    return render_template('emissor/listar_emissores.html')
-
-@app.route('/cadastrar_emissor')
-def cadastrar_emissor():
-    return render_template('cadastro.html')
+from apps.limites_credito import  limites_credito_routes
+app.register_blueprint(limites_credito_routes)
 
 if __name__ == '__main__':
     # Cria as tabelas antes de rodar o servidor
