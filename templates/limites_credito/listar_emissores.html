@@ -1,0 +1,75 @@
+{% include "limites_credito/header.html" %}
+{% extends "limites_credito/base_test.html" %}
+
+{% block conteudo %}
+
+<div class="pagetitle">
+    <h1>Data Tables</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item">Tables</li>
+        <li class="breadcrumb-item active">Data</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <a href="{{ url_for('limite_credito.formulario_cadastrar_emissor') }}" class="btn btn-primary mb-5">
+    Cadastrar Novo Emissor
+  </a>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"> Emissores </h5>
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                    <th>CNPJ</th>
+                    <th>Instituição de Garantia (CNPJ)</th>
+                    <th>Rating</th>
+                    <th>Emissor</th>
+                    <th>Analista</th>
+                    <th>Setor</th>
+                    <th>Grupo</th>
+                    <th>Mesa de Gestão</th>
+                    <th>Data de Atualização</th>
+                    <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for emissor in emissores %}
+                <tr>
+                    <td>{{ emissor.cnpj }}</td>
+                    <td>{{ emissor.instituicao_garantia_cnpj }}</td>
+                    <td>{{ emissor.rating }}</td>
+                    <td>{{ emissor.emissor }}</td>
+                    <td>{{ emissor.analista }}</td>
+                    <td>{{ emissor.setor }}</td>
+                    <td>{{ emissor.grupo }}</td>
+                    <td>{{ emissor.mesa_gestao }}</td>
+                    <td>{{ emissor.data_atualizacao.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>
+                        <a href="{{ url_for('limite_credito.editar_emissor', cnpj=emissor.cnpj) }}" class="btn btn-editar">Editar</a>
+                        <form action="{{ url_for('limite_credito.excluir_emissor', cnpj=emissor.cnpj) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-excluir">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

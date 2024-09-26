@@ -1,11 +1,10 @@
-from config import db
+from server import db
 from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(150), nullable=False)
-    
     def check_password(self, password):
         return self.password_hash == password
 
@@ -17,47 +16,51 @@ class Emissor(db.Model):
     analista = db.Column(db.String(50), nullable=False)
     setor = db.Column(db.String(50), nullable=False)
     grupo = db.Column(db.String(50), nullable=False)
-    mesaGestao = db.Column(db.String(50), nullable=False)
-    dtAtualizacao = db.Column(db.DateTime, nullable=False)
+    mesa_gestao = db.Column(db.String(50), nullable=False)
+    data_atualizacao = db.Column(db.DateTime, nullable=False)
+
+class Estruturados(db.Model):
+    ticker = db.Column(db.String(10), primary_key=True, nullable=False)
+    classe = db.Column(db.String(10), nullable=False)
+    cnpj = db.Column(db.String(14), db.ForeignKey('emissor.cnpj'), nullable=False)
+    indexador = db.Column(db.String(50), nullable=False)
+    vencimento = db.Column(db.DateTime, nullable=False)
+    duration = db.Column(db.Float, nullable=False)
+
+class EstruturadosEvento(db.Model):
+    evento_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    ticker = db.Column(db.String(10), db.ForeignKey('estruturados.ticker'), nullable=False)
+    rating = db.Column(db.String(50), nullable=False)
+    data_aprovacao = db.Column(db.DateTime, nullable=False)
+    data_vencimento = db.Column(db.DateTime, nullable=False)
+    comite = db.Column(db.String(50), nullable=False)
+    tipo_oferta = db.Column(db.String(50), nullable=False)
+    ic_coordenador_lider = db.Column(db.Boolean, nullable=False)
+    coordenador_unico = db.Column(db.String(50), nullable=False)
+    descricao_evento = db.Column(db.String(50), nullable=False)
+    link_ata = db.Column(db.String(50), nullable=False)
+    status_esg = db.Column(db.String(50), nullable=False)
+    classificacao_esg = db.Column(db.String(50), nullable=False)
+    detalhamento = db.Column(db.String(100), nullable=False) 
 
 class EventoEmissor(db.Model):
-    eventoId = db.Column(db.Integer,  primary_key=True, autoincrement=True)
-    descricaoEvento = db.Column(db.String(50), nullable=False)
+    evento_id = db.Column(db.Integer,  primary_key=True, autoincrement=True)
+    descricao_evento = db.Column(db.String(50), nullable=False)
     cnpj = db.Column(db.String(14), db.ForeignKey('emissor.cnpj'), nullable=False)
     rating = db.Column(db.String(50), nullable=False)
-    dataAprovacao = db.Column(db.DateTime, nullable=False)
-    dataVencimento = db.Column(db.DateTime, nullable=False)
-    tipoComite = db.Column(db.String(50), nullable=False)
-    tipoOferta = db.Column(db.String(50), nullable=False)
-    coordenadorUnico = db.Column(db.String(50), nullable=False)
-    coordenadorLider = db.Column(db.String(50), nullable=False)
-    vlPercentualDivida = db.Column(db.Float, nullable=False)
-    cdStatusESG = db.Column(db.String(50), nullable=False)
-    cdClassificacaoESG = db.Column(db.String(50), nullable=False)
-    dsOberservacao = db.Column(db.String(50), nullable=False)
+    data_aprovacao = db.Column(db.DateTime, nullable=False)
+    data_vencimento = db.Column(db.DateTime, nullable=False)
+    tipo_comite = db.Column(db.String(50), nullable=False)
+    tipo_oferta = db.Column(db.String(50), nullable=False)
+    coordenador_unico = db.Column(db.String(50), nullable=False)
+    coordenador_lider = db.Column(db.String(50), nullable=False)
+    vl_percentual_divida = db.Column(db.Float, nullable=False)
+    status_esg = db.Column(db.String(50), nullable=False)
+    classificacao_esg = db.Column(db.String(50), nullable=False)
+    detalhamento = db.Column(db.String(100), nullable=False) 
     
-
-
-
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
 
-class Cadastro(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nome = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    telefone = db.Column(db.String(15), nullable=False)
-    data_nascimento = db.Column(db.Date, nullable=False)
-    sexo = db.Column(db.String(1), nullable=False)
-    estado_civil = db.Column(db.String(20), nullable=False)
-    endereco = db.Column(db.String(100), nullable=False)
-    cidade = db.Column(db.String(50), nullable=False)
-    estado = db.Column(db.String(2), nullable=False)
-    cep = db.Column(db.String(9), nullable=False)
-    profissao = db.Column(db.String(50), nullable=False)
-    empresa = db.Column(db.String(50), nullable=False)
-    cargo = db.Column(db.String(50), nullable=False)
-    salario = db.Column(db.Float, nullable=False)
-    data_cadastro = db.Column(db.DateTime, nullable=False)

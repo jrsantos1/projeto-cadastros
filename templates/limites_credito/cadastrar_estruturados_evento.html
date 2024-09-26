@@ -1,0 +1,110 @@
+<div class="container mt-5">
+    <h2>Cadastrar Evento Estruturado</h2>
+    <form method="POST" action="{{ url_for('limites_credito.cadastrar_estruturados_evento') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            <label for="ticker" class="form-label">Ticker</label>
+            {{ form.ticker(class="form-control", id="ticker") }}
+            {% for error in form.ticker.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            {{ form.rating(class="form-control", id="rating") }}
+            {% for error in form.rating.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="data_aprovacao" class="form-label">Data de Aprovação</label>
+            {{ form.data_aprovacao(class="form-control", id="data_aprovacao") }}
+            {% for error in form.data_aprovacao.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="data_vencimento" class="form-label">Data de Vencimento</label>
+            {{ form.data_vencimento(class="form-control", id="data_vencimento") }}
+            {% for error in form.data_vencimento.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="comite" class="form-label">Comitê</label>
+            {{ form.comite(class="form-control", id="comite") }}
+            {% for error in form.comite.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="tipo_oferta" class="form-label">Tipo de Oferta</label>
+            {{ form.tipo_oferta(class="form-control", id="tipo_oferta") }}
+            {% for error in form.tipo_oferta.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="ic_coordenador_lider" class="form-label">Coordenador Líder</label>
+            {{ form.ic_coordenador_lider(class="form-check-input", id="ic_coordenador_lider") }}
+            <label class="form-check-label" for="ic_coordenador_lider">Sim</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="coordenador_unico" class="form-label">Coordenador Único</label>
+            {{ form.coordenador_unico(class="form-control", id="coordenador_unico") }}
+            {% for error in form.coordenador_unico.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="descricao_evento" class="form-label">Descrição do Evento</label>
+            {{ form.descricao_evento(class="form-control", id="descricao_evento") }}
+            {% for error in form.descricao_evento.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="link_ata" class="form-label">Link da Ata</label>
+            {{ form.link_ata(class="form-control", id="link_ata") }}
+            {% for error in form.link_ata.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="status_esg" class="form-label">Status ESG</label>
+            {{ form.status_esg(class="form-control", id="status_esg") }}
+            {% for error in form.status_esg.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="classificacao_esg" class="form-label">Classificação ESG</label>
+            {{ form.classificacao_esg(class="form-control", id="classificacao_esg") }}
+            {% for error in form.classificacao_esg.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="detalhamento" class="form-label">Detalhamento</label>
+            {{ form.detalhamento(class="form-control", id="detalhamento") }}
+            {% for error in form.detalhamento.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+    </form>
+</div>

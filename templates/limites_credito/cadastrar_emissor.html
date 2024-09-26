@@ -1,0 +1,107 @@
+{% include "limites_credito/header.html" %}
+{% extends "limites_credito/base_test.html" %}
+{% block conteudo %}
+<div class="container mt-5">
+    <h2>Cadastrar Emissor</h2>
+    <form method="POST" action="{{ url_for('limite_credito.cadastrar_emissor') }}">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            <label for="cnpj" class="form-label">CNPJ</label>
+            {{ form.cnpj(class="form-control", id="cnpj") }}
+            {% if form.cnpj.errors %}
+                <div class="text-danger">
+                    {% for error in form.cnpj.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="instituicao_garantia_cnpj" class="form-label">Instituição Garantia CNPJ</label>
+            {{ form.instituicao_garantia_cnpj(class="form-control", id="instituicao_garantia_cnpj") }}
+            {% if form.instituicao_garantia_cnpj.errors %}
+                <div class="text-danger">
+                    {% for error in form.instituicao_garantia_cnpj.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            {{ form.rating(class="form-control", id="rating") }}
+            {% if form.rating.errors %}
+                <div class="text-danger">
+                    {% for error in form.rating.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="emissor" class="form-label">Emissor</label>
+            {{ form.emissor(class="form-control", id="emissor") }}
+            {% if form.emissor.errors %}
+                <div class="text-danger">
+                    {% for error in form.emissor.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="analista" class="form-label">Analista</label>
+            {{ form.analista(class="form-control", id="analista") }}
+            {% if form.analista.errors %}
+                <div class="text-danger">
+                    {% for error in form.analista.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="setor" class="form-label">Setor</label>
+            {{ form.setor(class="form-control", id="setor") }}
+            {% if form.setor.errors %}
+                <div class="text-danger">
+                    {% for error in form.setor.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="grupo" class="form-label">Grupo</label>
+            {{ form.grupo(class="form-control", id="grupo") }}
+            {% if form.grupo.errors %}
+                <div class="text-danger">
+                    {% for error in form.grupo.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="mesa_gestao" class="form-label">Mesa de Gestão</label>
+            {{ form.mesa_gestao(class="form-control", id="mesa_gestao") }}
+            {% if form.mesa_gestao.errors %}
+                <div class="text-danger">
+                    {% for error in form.mesa_gestao.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>    
+        <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+    </form>
+</div>
+{% endblock %}

@@ -30,8 +30,8 @@ with app.app_context():
             analista=fake.name(),
             setor=random.choice(setores),
             grupo=random.choice(grupos),
-            mesaGestao=random.choice(mesas),
-            dtAtualizacao=datetime.now()
+            mesa_gestao=random.choice(mesas),
+            data_atualizacao=datetime.now()
         )
         db.session.add(emissor)
 

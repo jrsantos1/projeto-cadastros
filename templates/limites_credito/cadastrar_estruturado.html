@@ -1,0 +1,60 @@
+{% include "limites_credito/header.html" %}
+{% extends "limites_credito/base_test.html" %}
+{% block conteudo %}
+<div class="container mt-5">
+    <h2>Cadastrar Estruturado</h2>
+    <form method="POST" action="{{ url_for('cadastrar_estruturados') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            <label for="ticker" class="form-label">Ticker</label>
+            {{ form.ticker(class="form-control", id="ticker") }}
+            {% for error in form.ticker.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="classe" class="form-label">Classe</label>
+            {{ form.classe(class="form-control", id="classe") }}
+            {% for error in form.classe.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="cnpj" class="form-label">CNPJ</label>
+            {{ form.cnpj(class="form-control", id="cnpj") }}
+            {% for error in form.cnpj.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="indexador" class="form-label">Indexador</label>
+            {{ form.indexador(class="form-control", id="indexador") }}
+            {% for error in form.indexador.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="vencimento" class="form-label">Vencimento</label>
+            {{ form.vencimento(class="form-control", id="vencimento", placeholder="YYYY-MM-DD") }}
+            {% for error in form.vencimento.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="duration" class="form-label">Duration</label>
+            {{ form.duration(class="form-control", id="duration") }}
+            {% for error in form.duration.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+    </form>
+</div>
+{% endblock %}
