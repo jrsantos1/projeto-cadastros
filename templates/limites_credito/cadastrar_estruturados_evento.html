@@ -1,3 +1,6 @@
+{% include "limites_credito/header.html" %}
+{% extends "limites_credito/base_test.html" %}
+{% block conteudo %}
 <div class="container mt-5">
     <h2>Cadastrar Evento Estruturado</h2>
     <form method="POST" action="{{ url_for('limites_credito.cadastrar_estruturados_evento') }}">
@@ -108,3 +111,4 @@
         <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
     </form>
 </div>
+{% endblock %}

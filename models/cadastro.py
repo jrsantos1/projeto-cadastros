@@ -64,3 +64,16 @@ class Usuario(db.Model):
     nome = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
 
+class Limite():
+    id_limite = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    cd_issuer = db.Column(db.String(50), nullable=False)
+    cnpj = db.Column(db.String(14), db.ForeignKey('emissor.cnpj'), nullable=False)
+    nivel_controle = db.Column(db.String(50), nullable=False)
+    vl_prazo = db.Column(db.Float, nullable=False)
+    cd_mesa = db.Column(db.String(50), nullable=False)
+    vl_terceiros = db.Column(db.Float, nullable=False)
+    vl_reserva_tecnica = db.Column(db.Float, nullable=False)
+    data_aprovacao = db.Column(db.DateTime, nullable=False)
+    data_vencimento = db.Column(db.DateTime, nullable=False)
+    ic_caracteristica_holding = db.Column(db.Boolean, nullable=False)   
+    ic_run_off = db.Column(db.Boolean, nullable=False)

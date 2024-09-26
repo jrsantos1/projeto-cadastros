@@ -1,9 +1,9 @@
 from flask import Blueprint
 from server import app, db
-from models.cadastro import Emissor, Estruturados, EstruturadosEvento, EventoEmissor
+from models.cadastro import Emissor, Estruturados, EstruturadosEvento, EventoEmissor, Limite
 from flask import request, redirect, url_for, render_template, flash
 import datetime
-from forms import EmissorForm, EstruturadosForm, EstruturadosEventoForm, EventoEmissorForm
+from forms import EmissorForm, EstruturadosForm, EstruturadosEventoForm, EventoEmissorForm, LimiteForm
 
 limites_credito_routes = Blueprint('limite_credito', __name__, url_prefix='/limites_credito')
 
@@ -256,3 +256,51 @@ def deletar_evento(evento_id):
     db.session.commit()
     flash('Evento deletado com sucesso!')
     return redirect(url_for('limites_credito.listar_eventos'))
+
+
+@limites_credito_routes.route('/limites_credito/limites/')
+def listar_limites():
+    limites = Limite.query.all()
+    return render_template('limites_credito/listar_limites.html', limites=limites)
+
+@limites_credito_routes.route('/limites_credito/limites/novo', methods=['GET', 'POST'])
+def novo_limite():
+    form = LimiteForm()
+    if form.validate_on_submit():
+        novo_limite = Limite(
+            cd_issuer=form.cd_issuer.data,
+            cnpj=form.cnpj.data,
+            nivel_controle=form.nivel_controle.data,
+            vl_prazo=form.vl_prazo.data,
+            cd_mesa=form.cd_mesa.data,
+            vl_terceiros=form.vl_terceiros.data,
+            vl_reserva_tecnica=form.vl_reserva_tecnica.data,
+            data_aprovacao=form.data_aprovacao.data,
+            data_vencimento=form.data_vencimento.data,
+            ic_caracteristica_holding=form.ic_caracteristica_holding.data,
+            ic_run_off=form.ic_run_off.data
+        )
+        db.session.add(novo_limite)
+        db.session.commit()
+        flash('Limite criado com sucesso!')
+        return redirect(url_for('limites_credito.listar_limites'))
+    return render_template('limites_credito/novo_limite.html', form=form)
+
+@limites_credito_routes.route('/limites_credito/limites/<int:id_limite>/editar', methods=['GET', 'POST'])
+def editar_limite(id_limite):
+    limite = Limite.query.get_or_404(id_limite)
+    form = LimiteForm(obj=limite)
+    if form.validate_on_submit():
+        form.populate_obj(limite)
+        db.session.commit()
+        flash('Limite atualizado com sucesso!')
+        return redirect(url_for('limites_credito.listar_limites'))
+    return render_template('limites_credito/editar_limite.html', form=form)
+
+@limites_credito_routes.route('/limites_credito/limites/<int:id_limite>/deletar', methods=['POST'])
+def deletar_limite(id_limite):
+    limite = Limite.query.get_or_404(id_limite)
+    db.session.delete(limite)
+    db.session.commit()
+    flash('Limite deletado com sucesso!')
+    return redirect(url_for('limites_credito.listar_limites'))

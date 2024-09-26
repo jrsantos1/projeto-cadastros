@@ -1,0 +1,41 @@
+{% include "limites_credito/header.html" %}
+{% extends "limites_credito/base_test.html" %}
+{% block conteudo %}
+<div class="container mt-4">
+    <h2>Lista de Limites</h2>
+    <a href="{{ url_for('limites_credito.novo_limite') }}" class="btn btn-primary mb-3">Novo Limite</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CNPJ</th>
+                <th>Cd Issuer</th>
+                <th>Nível de Controle</th>
+                <th>Valor Prazo</th>
+                <th>Data Aprovação</th>
+                <th>Data Vencimento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for limite in limites %}
+            <tr>
+                <td>{{ limite.id_limite }}</td>
+                <td>{{ limite.cnpj }}</td>
+                <td>{{ limite.cd_issuer }}</td>
+                <td>{{ limite.nivel_controle }}</td>
+                <td>{{ limite.vl_prazo }}</td>
+                <td>{{ limite.data_aprovacao.strftime('%d/%m/%Y') }}</td>
+                <td>{{ limite.data_vencimento.strftime('%d/%m/%Y') }}</td>
+                <td>
+                    <a href="{{ url_for('limites_credito.editar_limite', id_limite=limite.id_limite) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{{ url_for('limites_credito.deletar_limite', id_limite=limite.id_limite) }}" method="POST" style="display:inline-block;">
+                        <button type="submit" class="btn btn-danger btn-sm">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

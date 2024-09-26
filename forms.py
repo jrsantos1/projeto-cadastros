@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, DateTimeField, FloatField, BooleanField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, DateTimeField, FloatField, BooleanField, TextAreaField, DateField
 from wtforms.validators import DataRequired, Length, Regexp
 
 class LoginForm(FlaskForm):
@@ -67,3 +67,16 @@ class EventoEmissorForm(FlaskForm):
     classificacao_esg = StringField('Classificação ESG', validators=[DataRequired()])
     detalhamento = TextAreaField('Detalhamento', validators=[DataRequired()])
     submit = SubmitField('Salvar')
+
+class LimiteForm(FlaskForm):
+    cd_issuer = StringField('Código do Issuer', validators=[DataRequired()])
+    cnpj = StringField('CNPJ', validators=[DataRequired()])
+    nivel_controle = StringField('Nível de Controle', validators=[DataRequired()])
+    vl_prazo = FloatField('Valor Prazo', validators=[DataRequired()])
+    cd_mesa = StringField('Código da Mesa', validators=[DataRequired()])
+    vl_terceiros = FloatField('Valor Terceiros', validators=[DataRequired()])
+    vl_reserva_tecnica = FloatField('Valor Reserva Técnica', validators=[DataRequired()])
+    data_aprovacao = DateField('Data de Aprovação', validators=[DataRequired()], format='%Y-%m-%d')
+    data_vencimento = DateField('Data de Vencimento', validators=[DataRequired()], format='%Y-%m-%d')
+    ic_caracteristica_holding = BooleanField('Característica Holding')
+    ic_run_off = BooleanField('Run-off')

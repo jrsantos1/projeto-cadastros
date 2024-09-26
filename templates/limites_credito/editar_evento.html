@@ -1,0 +1,64 @@
+{% include "limites_credito/header.html" %}
+{% extends "limites_credito/base_test.html" %}
+{% block conteudo %}
+<div class="container mt-4">
+    <h2>{{ form.descricao_evento.label.text }} {{ "Editar Evento" if form.descricao_evento.data else "Novo Evento" }}</h2>
+    <form method="POST" class="needs-validation" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.descricao_evento.label(class="form-label") }}
+            {{ form.descricao_evento(class="form-control", placeholder="Descrição do evento") }}
+        </div>
+        <div class="mb-3">
+            {{ form.cnpj.label(class="form-label") }}
+            {{ form.cnpj(class="form-control", placeholder="CNPJ do emissor") }}
+        </div>
+        <div class="mb-3">
+            {{ form.rating.label(class="form-label") }}
+            {{ form.rating(class="form-control", placeholder="Rating") }}
+        </div>
+        <div class="mb-3">
+            {{ form.data_aprovacao.label(class="form-label") }}
+            {{ form.data_aprovacao(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.data_vencimento.label(class="form-label") }}
+            {{ form.data_vencimento(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.tipo_comite.label(class="form-label") }}
+            {{ form.tipo_comite(class="form-control", placeholder="Tipo de Comitê") }}
+        </div>
+        <div class="mb-3">
+            {{ form.tipo_oferta.label(class="form-label") }}
+            {{ form.tipo_oferta(class="form-control", placeholder="Tipo de Oferta") }}
+        </div>
+        <div class="mb-3">
+            {{ form.coordenador_unico.label(class="form-label") }}
+            {{ form.coordenador_unico(class="form-control", placeholder="Coordenador Único") }}
+        </div>
+        <div class="mb-3">
+            {{ form.coordenador_lider.label(class="form-label") }}
+            {{ form.coordenador_lider(class="form-control", placeholder="Coordenador Líder") }}
+        </div>
+        <div class="mb-3">
+            {{ form.vl_percentual_divida.label(class="form-label") }}
+            {{ form.vl_percentual_divida(class="form-control", placeholder="Percentual da Dívida") }}
+        </div>
+        <div class="mb-3">
+            {{ form.status_esg.label(class="form-label") }}
+            {{ form.status_esg(class="form-control", placeholder="Status ESG") }}
+        </div>
+        <div class="mb-3">
+            {{ form.classificacao_esg.label(class="form-label") }}
+            {{ form.classificacao_esg(class="form-control", placeholder="Classificação ESG") }}
+        </div>
+        <div class="mb-3">
+            {{ form.detalhamento.label(class="form-label") }}
+            {{ form.detalhamento(class="form-control", placeholder="Detalhamento do Evento") }}
+        </div>
+        <button type="submit" class="btn btn-primary">{{ "Atualizar" if form.descricao_evento.data else "Criar" }}</button>
+        <a href="{{ url_for('limites_credito.listar_eventos') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
