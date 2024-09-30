@@ -1,0 +1,100 @@
+{% include "limites_credito/header.html" %}
+{% extends "limites_credito/base_test.html" %}
+{% block conteudo %}
+
+<div class="container mt-4">
+    <h2>{{ "Editar Limite" if form.cd_issuer.data else "Novo Limite" }}</h2>
+    <form method="POST" class="needs-validation" novalidate>
+        {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        <label for="cd_issuer" class="form-label"> Código Issuer</label>
+        {{ form.cd_issuer(class="form-control", id="cd_issuer") }}
+        {% for error in form.cd_issuer.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <label for="cnpj" class="form-label"> Emissor </label>
+        {{ form.cnpj(class="form-control", id="cnpj") }}
+        {% if form.cnpj.errors %}
+            <div class="text-danger">
+                {% for error in form.cnpj.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="nivel_controle" class="form-label">Nível de Controle</label>
+        {{ form.nivel_controle(class="form-control", id="nivel_controle") }}
+        {% for error in form.nivel_controle.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <label for="vl_prazo" class="form-label">Valor Prazo</label>
+        {{ form.vl_prazo(class="form-control", id="vl_prazo", type="number") }}
+        {% for error in form.vl_prazo.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <label for="cd_mesa" class="form-label">Código da Mesa</label>
+        {{ form.cd_mesa(class="form-control", id="cd_mesa") }}
+        {% for error in form.cd_mesa.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <label for="vl_terceiros" class="form-label">Valor Terceiros</label>
+        {{ form.vl_terceiros(class="form-control", id="vl_terceiros", type="number") }}
+        {% for error in form.vl_terceiros.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <label for="vl_reserva_tecnica" class="form-label">Valor Reserva Técnica</label>
+        {{ form.vl_reserva_tecnica(class="form-control", id="vl_reserva_tecnica", type="number") }}
+        {% for error in form.vl_reserva_tecnica.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+            <label for="data_aprovacao" class="form-label">Data de Aprovação</label>
+            {{ form.data_aprovacao(class="form-control", id="data_aprovacao", type="date") }}
+            {% for error in form.data_aprovacao.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+    <div class="mb-3">
+            <label for="data_vencimento" class="form-label">Data de Vencimento</label>
+            {{ form.data_vencimento(class="form-control", id="data_vencimento", type="date") }}
+            {% for error in form.data_vencimento.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+    <div class="mb-3">
+        <label for="ic_caracteristica_holding" class="form-check-label">Característica Holding</label>
+        {{ form.ic_caracteristica_holding(class="form-check-input", id="ic_caracteristica_holding") }}
+    </div>
+
+    <div class="mb-3">
+        <label for="ic_run_off" class="form-check-label">Run-off</label>
+        {{ form.ic_run_off(class="form-check-input", id="ic_run_off") }}
+    </div>
+
+        <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+        <a href="{{ url_for('limite_credito.listar_limites') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

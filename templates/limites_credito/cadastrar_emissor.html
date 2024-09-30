@@ -2,7 +2,7 @@
 {% extends "limites_credito/base_test.html" %}
 {% block conteudo %}
 <div class="container mt-5">
-    <h2>Cadastrar Emissor</h2>
+    <h2 class="mb-4">Cadastrar Emissor</h2>
     <form method="POST" action="{{ url_for('limite_credito.cadastrar_emissor') }}">
         {{ form.hidden_tag() }}
         
@@ -17,7 +17,12 @@
                 </div>
             {% endif %}
         </div>
-        
+
+        <div class="mb-3">
+            {{ form.ic_garantia_aval.label(class="form-label") }}
+            {{ form.ic_garantia_aval() }}  <!-- Campo booleano -->
+        </div>
+
         <div class="mb-3">
             <label for="instituicao_garantia_cnpj" class="form-label">Instituição Garantia CNPJ</label>
             {{ form.instituicao_garantia_cnpj(class="form-control", id="instituicao_garantia_cnpj") }}
@@ -30,6 +35,18 @@
             {% endif %}
         </div>
         
+        <div class="mb-3">
+            <label for="rating" class="form-label"> Cod Issuer </label>
+            {{ form.cd_issuer(class="form-control", id="cd_issuer") }}
+            {% if form.cd_issuer.errors %}
+                <div class="text-danger">
+                    {% for error in form.cd_issuer.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
         <div class="mb-3">
             <label for="rating" class="form-label">Rating</label>
             {{ form.rating(class="form-control", id="rating") }}
@@ -104,4 +121,22 @@
         <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const icGarantia = document.querySelector('input[name="ic_garantia_aval"]');
+        const cnpjField = document.getElementById('instituicao_garantia_cnpj');
+
+        // Função para ativar ou desativar o campo
+        function toggleCnpjField() {
+            cnpjField.disabled = !icGarantia.checked;  // Ativa/desativa com base na checkbox
+        }
+
+        // Adiciona o evento de mudança ao campo booleano
+        icGarantia.addEventListener('change', toggleCnpjField);
+
+        // Inicializa o estado do campo ao carregar a página
+        toggleCnpjField();
+    });
+</script>
 {% endblock %}

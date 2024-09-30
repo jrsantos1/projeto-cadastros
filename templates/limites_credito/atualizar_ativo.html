@@ -1,0 +1,104 @@
+{% include "header.html" %}
+{% extends "base_test.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Atualizar Ativo </h2>
+    <form method="POST" action="{{ url_for('limite_credito.atualizar_ativo', ticker=form.ticker.data) }}">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3 d-none">
+            <label for="ticker" class="form-label">Ticker</label>
+            {{ form.ticker(class="form-control", id="ticker", readonly=True) }}
+            {% for error in form.ticker.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="classe" class="form-label">Classe</label>
+            {{ form.classe(class="form-control", id="classe") }}
+            {% for error in form.classe.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            {{ form.classe(class="form-control", id="classe") }}
+            {% for error in form.rating.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="cnpj" class="form-label"> Emissor </label>
+            {{ form.cnpj(class="form-control", id="cnpj") }}
+            {% if form.cnpj.errors %}
+                <div class="text-danger">
+                    {% for error in form.cnpj.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="indexador" class="form-label">Indexador</label>
+            {{ form.indexador(class="form-control", id="indexador") }}
+            {% for error in form.indexador.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="data_vencimento" class="form-label">Vencimento</label>
+            {{ form.data_vencimento(class="form-control", id="data_vencimento", placeholder="YYYY-MM-DD") }}
+            {% for error in form.data_vencimento.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="duration" class="form-label">Duration</label>
+            {{ form.duration(class="form-control", id="duration") }}
+            {% for error in form.duration.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+
+    </form>
+</div>
+
+<!-- Toasts -->
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+    <div class="toast-container" style="position: absolute; top: 20px; right: 20px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" style="margin-bottom: 1rem;">
+                        <div class="toast-header">
+                            <strong class="mr-auto">{{ category.capitalize() }}</strong>
+                            <small class="text-muted">Agora</small>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
+ <script>
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+</script>
+
+{% endblock %}

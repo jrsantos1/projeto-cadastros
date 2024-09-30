@@ -1,0 +1,39 @@
+{% include "header.html" %}
+{% extends "base_test.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Listar Ativos </h2>
+    <a href="{{ url_for('limite_credito.cadastrar_ativo') }}" class="btn btn-primary mb-3">Cadastrar novo Ativo</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Classe</th>
+                <th>CNPJ</th>
+                <th>Indexador</th>
+                <th>Vencimento</th>
+                <th>Duration</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ativo in ativos %}
+                <tr>
+                    <td>{{ ativo.ticker }}</td>
+                    <td>{{ ativo.classe }}</td>
+                    <td>{{ ativo.cnpj }}</td>
+                    <td>{{ ativo.indexador }}</td>
+                    <td>{{ ativo.data_vencimento }}</td>
+                    <td>{{ ativo.duration }}</td>
+                    <td>
+                        <a href="{{ url_for('limite_credito.atualizar_ativo', ticker=ativo.ticker) }}" class="btn btn-warning btn-sm">Editar</a>
+                        <form action="{{ url_for('limite_credito.excluir_ativo', ticker=ativo.ticker) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

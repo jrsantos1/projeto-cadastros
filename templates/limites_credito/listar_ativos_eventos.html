@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Lista de Eventos</h2>
+    <a href="{{ url_for('limite_credito.cadastrar_ativo_evento') }}" class="btn btn-primary mb-3">Novo Evento</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ticker</th>
+                <th>Descrição</th>
+                <th>Rating</th>
+                <th>Data de Aprovação</th>
+                <th>Data de Vencimento</th>
+                <th>Tipo de Comitê</th>
+                <th>Tipo de Oferta</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in eventos %}
+            <tr>
+                <td>{{ evento.evento_id }}</td>
+                <td>{{ evento.ticker }}</td>
+                <td>{{ evento.descricao_evento }}</td>
+                <td>{{ evento.rating }}</td>
+                <td>{{ evento.data_aprovacao.strftime('%d/%m/%Y') }}</td>
+                <td>{{ evento.data_vencimento.strftime('%d/%m/%Y') }}</td>
+                <td>{{ evento.comite }}</td>
+                <td>{{ evento.tipo_oferta }}</td>
+                <td>
+                    <a href="{{ url_for('limite_credito.formulario_atualizar_ativo_evento', evento_id=evento.evento_id) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{{ url_for('limite_credito.excluir_ativo_evento', evento_id=evento.evento_id) }}" method="POST" style="display:inline-block;">
+                        <button type="submit" class="btn btn-danger btn-sm">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

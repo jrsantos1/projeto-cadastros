@@ -1,18 +1,10 @@
-{% include "limites_credito/header.html" %}
-{% extends "limites_credito/base_test.html" %}
+{% include "header.html" %}
+{% extends "base_test.html" %}
+{% block content %}
 
-{% block conteudo %}
 
-<div class="pagetitle">
-    <h1>Data Tables</h1>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item">Tables</li>
-        <li class="breadcrumb-item active">Data</li>
-      </ol>
-    </nav>
-  </div><!-- End Page Title -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
   <a href="{{ url_for('limite_credito.formulario_cadastrar_emissor') }}" class="btn btn-primary mb-5">
     Cadastrar Novo Emissor
@@ -26,7 +18,7 @@
           <div class="card-body">
             <h5 class="card-title"> Emissores </h5>
             <!-- Table with stripped rows -->
-            <table class="table datatable">
+            <table class="table datatable" id="table_datatable">
               <thead>
                 <tr>
                     <th>CNPJ</th>
@@ -54,9 +46,9 @@
                     <td>{{ emissor.mesa_gestao }}</td>
                     <td>{{ emissor.data_atualizacao.strftime('%d/%m/%Y %H:%M') }}</td>
                     <td>
-                        <a href="{{ url_for('limite_credito.editar_emissor', cnpj=emissor.cnpj) }}" class="btn btn-editar">Editar</a>
+                        <a href="{{ url_for('limite_credito.editar_emissor', cnpj=emissor.cnpj) }}" class="btn btn-warning btn-sm">Editar</a>
                         <form action="{{ url_for('limite_credito.excluir_emissor', cnpj=emissor.cnpj) }}" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-excluir">Excluir</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                         </form>
                     </td>
                 </tr>
@@ -72,4 +64,39 @@
     </div>
   </section>
 
+<!-- Toasts -->
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+    <div class="toast-container" style="position: absolute; top: 20px; right: 20px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" style="margin-bottom: 1rem;">
+                        <div class="toast-header">
+                            <strong class="mr-auto">{{ category.capitalize() }}</strong>
+                            <small class="text-muted">Agora</small>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
+<script>
+   $(document).ready(function() {
+       $('#table_datatable').DataTable();
+   });
+</script>
+
+ <script>
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+</script>
 {% endblock %}

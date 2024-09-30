@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Cadastrar Evento Ativo </h2>
-    <form method="POST" action="{{ url_for('limite_credito.cadastrar_emissor_evento') }}">
+    <form method="POST" action="{{ url_for('limite_credito.atualizar_emissor_evento', evento_id=form.evento_id.data) }}">
         {{ form.hidden_tag() }}
 
         <div class="mb-3">
